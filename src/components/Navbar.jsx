@@ -1,13 +1,19 @@
-import {React,useContext} from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { React, useContext } from "react";
+import {
+  Navigate,
+  useNavigate,
+  Link,
+  useLinkClickHandler,
+} from "react-router-dom";
 import Usercontext from "../context/context";
+
 const Navbar = () => {
   const { currmanager, setcurrmanager } = useContext(Usercontext);
   const logout = () => {
     setcurrmanager([]);
   };
 
-  let navigation=useNavigate()
+  let navigation = useNavigate();
   return (
     <nav>
       <div className="flex justify-between h-[8vh] w-full px-10 bg-gradient-to-r from-slate-600 to-green-700">
@@ -21,7 +27,15 @@ const Navbar = () => {
         </div>
         <div className="flex items-center">
           <div className="flex items-center gap-7">
-            <button className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-white font-medium px-3 py-1 rounded-lg shadow-md transition duration-300">
+            <button
+              className="flex items-center gap-2 bg-slate-600 hover:bg-slate-500 text-white font-medium px-3 py-1 rounded-lg shadow-md transition duration-300"
+              onClick={() =>
+                window.open(
+                  "https://github.com/ashok280705/Vaultify-Mongodb-Version",
+                  "_blank"
+                )
+              }
+            >
               <span
                 dangerouslySetInnerHTML={{
                   __html: `<lord-icon
@@ -34,10 +48,13 @@ const Navbar = () => {
               />
               <span>GitHub</span>
             </button>
-            <button className="bg-red-600 text-white px-3 py-2 rounded-md" onClick={()=>{
-              logout()
-              navigation('/')
-            }}>
+            <button
+              className="bg-red-600 text-white px-3 py-2 rounded-md"
+              onClick={() => {
+                logout();
+                navigation("/");
+              }}
+            >
               Logout
             </button>
           </div>
