@@ -6,7 +6,11 @@ const Login = () => {
    const [isRegister, setisRegister] = useState(false);
   const navigate = useNavigate();
   const { setcurrentUser } = useContext(Usercontext); // 👈 use setter
+  const [passwordType, setPasswordType] = useState("password");
 
+  const handleToggle = () => {
+    setPasswordType((prev) => (prev === "password" ? "text" : "password"));
+  };
   const {
     register,
     handleSubmit,
@@ -85,18 +89,29 @@ const Login = () => {
               {...register("username", { required: true })}
               className="w-[80%] px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-60"
             />
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password", {
-                required: true,
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-              })}
-              className="w-[80%] px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-60"
-            />
+             <div className="relative w-[80%]">
+              <input
+                type={passwordType}
+                placeholder="Password"
+                {...register("password", {
+                  required: true,
+                  minLength: { value: 8, message: "Min 8 characters" },
+                })}
+                className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-60"
+              />
+              <button
+                onClick={handleToggle}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              >
+                <lord-icon
+                  src="https://cdn.lordicon.com/dicvhxpz.json"
+                  trigger="hover"
+                  stroke="bold"
+                  colors="primary:#121331,secondary:#000000"
+                  style={{ width: "22px", height: "22px" }}
+                ></lord-icon>
+              </button>
+            </div>
             <button
               disabled={isSubmitting}
               type="submit"
